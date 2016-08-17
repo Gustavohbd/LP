@@ -1,0 +1,270 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+void inicializaPolinomio(float p[],int grado);
+void ImprimePol(float p[],int grado);
+float ValuaPol(float p[],int grado,float valor);
+void SumaPolinomios(float p[],float p2[],int grado, int grado2,float p3[]);
+void RestaPolinomios(float p[],float p2[],int grado, int grado2,float p3[]);
+int igualdad(float p[],float p2[], int grado,int grado2);
+void Opuesto(float p[],int grado);
+
+
+main()
+{
+    char op,op2;
+    int grado,grado2,grado3;
+    float polinomio[100], polinomio2[100],val,pol3[100];
+
+    do
+    {
+        printf("Operaciones con polinomios\n\n");
+        printf("1)Valor en un punto\n");
+        printf("2)Suma de polinomios\n");
+        printf("3)Resta de polinomios\n");
+        printf("4)Igualdad de polinomios\n");
+        printf("5)Polinomio opuesto\n");
+        printf("6)Multiplicacion de polinomios\n\n");
+        scanf("%i",&op);
+        fflush(stdin);
+
+        switch(op)
+        {
+            case 1:
+                system("cls");
+                printf("Ingresa el orden del polinomio");
+                scanf("%i",&grado);
+                printf("Ingresa los coeficientes del polinomio a partir del termino independiente\n");
+                inicializaPolinomio(polinomio,grado);
+                ImprimePol(polinomio,grado);
+                printf("\nIngresa el valor a valuar en el polinomio\n");
+                scanf("%f",&val);
+	        printf("El resultado es: %f\n",ValuaPol(polinomio,grado,val));
+                break;
+
+            case 2:
+                system("cls");
+                printf("Ingresa el orden del polinomio 1\n");
+                scanf("%i",&grado);
+                printf("Ingresa el orden del polinomio 2\n");
+                scanf("%i",&grado2);
+                printf("Ingresa los coeficientes del polinomio 1 a partir del termino independiente\n");
+                inicializaPolinomio(polinomio,grado);
+                printf("Ingresa los coeficientes del polinomio 2 a partir del termino independiente\n");
+                inicializaPolinomio(polinomio2,grado2);
+                ImprimePol(polinomio,grado);
+                printf("\n");
+                ImprimePol(polinomio2,grado2);
+                printf("\n");
+                SumaPolinomios(polinomio,polinomio2,grado,grado2,pol3);
+                if(grado>=grado2)
+                {
+                    printf("\n");
+                    ImprimePol(pol3,grado);
+                }
+                else
+                {
+                    printf("\n");
+                    ImprimePol(pol3,grado2);
+                }
+
+                break;
+
+            case 3:
+                system("cls");
+                printf("Ingresa el orden del polinomio 1\n");
+                scanf("%i",&grado);
+                printf("Ingresa el orden del polinomio 2\n");
+                scanf("%i",&grado2);
+                printf("Ingresa los coeficientes del polinomio 1 a partir del termino independiente\n");
+                inicializaPolinomio(polinomio,grado);
+                printf("Ingresa los coeficientes del polinomio 2 a partir del termino independiente\n");
+                inicializaPolinomio(polinomio2,grado2);
+                ImprimePol(polinomio,grado);
+                printf("\n");
+                ImprimePol(polinomio2,grado2);
+                printf("\n");
+                RestaPolinomios(polinomio,polinomio2,grado,grado2,pol3);
+                if(grado>=grado2)
+                {
+                    printf("\n");
+                    ImprimePol(pol3,grado);
+                }
+                else
+                {
+                    printf("\n");
+                    ImprimePol(pol3,grado2);
+                }
+                break;
+
+            case 4:
+                system("cls");
+                printf("Ingresa el orden del polinomio 1\n");
+                scanf("%i",&grado);
+                printf("Ingresa el orden del polinomio 2\n");
+                scanf("%i",&grado2);
+                printf("Ingresa los coeficientes del polinomio 1 a partir del termino independiente\n");
+                inicializaPolinomio(polinomio,grado);
+                printf("Ingresa los coeficientes del polinomio 2 a partir del termino independiente\n");
+                inicializaPolinomio(polinomio2,grado2);
+                ImprimePol(polinomio,grado);
+                printf("\n");
+                ImprimePol(polinomio2,grado2);
+                printf("\n");
+                if(igualdad(polinomio,polinomio2,grado,grado2) == 1)
+                    printf("Los polinomios son iguales\n");
+                else
+                    printf("Los polinomios no son iguales");
+                break;
+
+            case 5:
+                system("cls");
+                printf("Ingresa el orden del polinomio");
+                scanf("%i",&grado);
+                printf("Ingresa los coeficientes del polinomio a partir del termino independiente\n");
+                inicializaPolinomio(polinomio,grado);
+                ImprimePol(polinomio,grado);
+                printf("El polinomio opuesto es:\n");
+                Opuesto(polinomio,grado);
+                ImprimePol(polinomio,grado);
+                break;
+
+            case 6:
+                system("cls");
+                printf("6");
+                break;
+        }
+        printf("\nQuieres seleccionar otra opcion? 1-S/2-N\n");
+        scanf("%i",&op2);
+        fflush(stdin);
+    }while(op2 == 1);
+
+
+    system("pause");
+    return 0;
+}
+
+void inicializaPolinomio(float p[],int grado)
+{
+    int i;
+    p[grado];
+    for(i=0; i<=grado; i++)
+    {
+        scanf("%f",&p[i]);
+        fflush(stdin);
+    }
+}
+
+void ImprimePol(float p[],int grado)
+{
+    int i;
+    p[grado];
+    for(i=0; i<=grado; i++)
+    {
+        printf("%.2fx^%i \t",p[i],i);
+    }
+}
+
+float ValuaPol(float p[],int grado,float val)
+{
+    int i;
+    float a=0,resultado;
+    p[grado];
+
+    for(i=1; i<=grado; i++)
+        a = a + p[i]*(pow(val,i));
+    resultado = a + p[0];
+    return resultado;
+
+}
+
+void SumaPolinomios(float p[],float p2[],int grado, int grado2,float p3[])
+{
+    int i;
+    if(grado==grado2)
+    {
+        for(i=0; i<=grado; i++)
+        {
+            p3[i] = p[i] + p2[i];
+        }
+    }
+    else
+        if(grado>grado2)
+        {
+            for(i=0; i<=grado; i++)
+            {
+                p3[i] = p[i] + p2[i];
+            }
+        }
+        else
+            {
+                if(grado<grado2)
+                {
+                    for(i=0; i<=grado2; i++)
+                    {
+                        p3[i] = p[i] + p2[i];
+                    }
+                }
+            }
+}
+
+void RestaPolinomios(float p[],float p2[],int grado, int grado2,float p3[])
+{
+    int i;
+
+    if(grado==grado2)
+    {
+        for(i=0; i<=grado; i++)
+        {
+            p3[i] = p[i] - p2[i];
+        }
+    }
+    else
+        if(grado>grado2)
+        {
+            for(i=0; i<=grado; i++)
+            {
+                p3[i] = p[i] - p2[i];
+            }
+        }
+        else
+            {
+                if(grado<grado2)
+                {
+                    for(i=0; i<=grado2; i++)
+                    {
+                        p3[i] = p[i] - p2[i];
+                    }
+                }
+            }
+}
+
+int igualdad(float p[],float p2[], int grado,int grado2) //Regresa 0 si no son iguales, 1 si son iguales
+{
+	int i,a=0;
+	if(grado != grado2)
+		return 0;
+	else
+	{
+		for(i=0; i<=grado; i++)
+		{
+			if(p[i] == p2[i])
+				a = a + 1;
+			else
+				a = a;
+		}
+		if(a==(grado+1))
+			return 1;
+		else
+			return 0;
+	}
+}
+
+void Opuesto(float p[],int grado)
+{
+	p[grado];
+	int i;
+	for(i=0; i<=grado; i++)
+		p[i] = p[i]*(-1);
+}
